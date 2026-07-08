@@ -11,3 +11,69 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum Role{
+  ADMIN
+  STAFF
+}
+
+model User {
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  password String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  role Role @default(STAFF)
+  @@map("users")
+}
+
+model Category{
+    id String @id @default(uuid())
+  name String
+    createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  products Product[] 
+  @@map("categories")
+}
+
+model Product{
+    id String @id @default(uuid())
+  name String
+  description String
+  price Int
+  banner String
+  disabled Boolean @default(false)
+    createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+category_id String
+category Category @relation(fields: [category_id],references: [id], onDelete: Cascade)
+items Item[]
+  @@map("products")
+
+}
+
+model Order{
+  id String @id @default(uuid())
+  table Int
+  status Boolean @default(false) 
+  draft Boolean @default(true) 
+  name String?
+  items Item[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("orders")
+}
+
+model Item{
+  id String @id @default(uuid())
+  amount Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  order_id String
+  order Order @relation(fields:[order_id], references:[id], onDelete: Cascade)
+  product_id String
+  product Product @relation(fields:[product_id], references:[id], onDelete: Cascade)
+
+  @@map("items")
+}
