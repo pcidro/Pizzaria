@@ -10,6 +10,6 @@ export class UserController {
       email,
       password,
     });
-    res.json({ message: user });
+    res.json(user);
   }
 }
