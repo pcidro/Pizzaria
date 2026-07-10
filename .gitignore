@@ -38,3 +38,7 @@ Thumbs.db
 # Arquivos do JetBrains (WebStorm, IntelliJ)
 .idea/
 /src/generated/prisma
+
+# Qualquer arquivo Markdown
+*.md
+!README.md
