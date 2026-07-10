@@ -13,7 +13,7 @@ export function isAuthenticated(
   const authToken = req.headers.authorization;
 
   if (!authToken) {
-    res.status(401).json({
+    return res.status(401).json({
       error: "Token não fornecido",
     });
   }
