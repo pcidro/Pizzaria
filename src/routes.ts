@@ -10,6 +10,7 @@ import { CreateCategoryController } from "./controllers/category/CreateCategoryC
 import { ListCategoryController } from "./controllers/category/ListCategoryController";
 import { isAdmin } from "./middlewares/isAdmin";
 import { createCategorySchema } from "./schemas/categorySchema";
+import { CreateProductController } from "./controllers/product/CreateProductContoller";
 
 const router = Router();
 
@@ -35,10 +36,13 @@ router.post(
   new CreateCategoryController().handle,
 );
 
-router.get(
-  "/category",
+router.get("/category", isAuthenticated, new ListCategoryController().handle);
+
+router.post(
+  "/product",
   isAuthenticated,
-  new ListCategoryController().handle,
+  isAdmin,
+  new CreateProductController().handle,
 );
 
 export { router };
