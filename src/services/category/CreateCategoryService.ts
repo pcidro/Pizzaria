@@ -7,6 +7,15 @@ interface CreateCategoryProps {
 export class CreateCategoryService {
   async execute({ name }: CreateCategoryProps) {
     try {
+      const categoryAlreadyExists = await prisma.category.findFirst({
+        where: {
+          name: name,
+        },
+      });
+      if (categoryAlreadyExists) {
+        throw new Error("Esta categoria já existe.");
+      }
+
       const category = await prisma.category.create({
         data: {
           name: name,
