@@ -1,21 +1,43 @@
 import { Router } from "express";
+
+// Configurações
 import multer from "multer";
 import uploadConfig from "./config/multer";
-import { UserController } from "./controllers/user/CreateUserController";
+
+// Middlewares
+import { isAuthenticated } from "./middlewares/isAuthenticated";
+import { isAdmin } from "./middlewares/isAdmin";
 import { validateSchema } from "./middlewares/validateSchema";
-import { createUserSchema } from "./schemas/userSchema";
+
+// Schemas
 import { authUserSchema } from "./schemas/authUserSchema";
+import { createCategorySchema } from "./schemas/categorySchema";
+import {
+  createProductSchema,
+  listProductSchema,
+} from "./schemas/productSchema";
+import { createUserSchema } from "./schemas/userSchema";
+
+// Controllers - Usuários
+import { UserController } from "./controllers/user/CreateUserController";
 import { AuthUserController } from "./controllers/user/AuthUserController";
 import { DetailUserController } from "./controllers/user/DetailUserController";
-import { isAuthenticated } from "./middlewares/isAuthenticated";
+
+// Controllers - Categorias
 import { CreateCategoryController } from "./controllers/category/CreateCategoryController";
 import { ListCategoryController } from "./controllers/category/ListCategoryController";
-import { isAdmin } from "./middlewares/isAdmin";
-import { createCategorySchema } from "./schemas/categorySchema";
+
+// Controllers - Produtos
 import { CreateProductController } from "./controllers/product/CreateProductContoller";
+import { ListProductController } from "./controllers/product/ListProductController";
+import { DeleteProductController } from "./controllers/product/DeleteProductController";
 
 const router = Router();
 const upload = multer(uploadConfig);
+
+// ====================
+// Rotas de Usuários
+// ====================
 
 router.post(
   "/users",
@@ -31,6 +53,10 @@ router.post(
 
 router.get("/me", isAuthenticated, new DetailUserController().handle);
 
+// ====================
+// Rotas de Categorias
+// ====================
+
 router.post(
   "/category",
   isAuthenticated,
@@ -41,12 +67,31 @@ router.post(
 
 router.get("/category", isAuthenticated, new ListCategoryController().handle);
 
+// ====================
+// Rotas de Produtos
+// ====================
+
 router.post(
   "/product",
   isAuthenticated,
   isAdmin,
   upload.single("file"),
+  validateSchema(createProductSchema),
   new CreateProductController().handle,
+);
+
+router.get(
+  "/products",
+  isAuthenticated,
+  validateSchema(listProductSchema),
+  new ListProductController().handle,
+);
+
+router.delete(
+  "/product",
+  isAuthenticated,
+  isAdmin,
+  new DeleteProductController().handle,
 );
 
 export { router };
