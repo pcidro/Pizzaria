@@ -32,7 +32,7 @@ coverage/
 .DS_Store
 Thumbs.db
 
-# Configurações do VS Code
+
 .vscode/
 
 # Arquivos do JetBrains (WebStorm, IntelliJ)
@@ -42,3 +42,4 @@ Thumbs.db
 # Qualquer arquivo Markdown
 *.md
 !README.md
+
