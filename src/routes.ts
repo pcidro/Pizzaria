@@ -17,6 +17,12 @@ import {
   listProductSchema,
   listProductByCategorySchema,
 } from "./schemas/productSchema";
+import {
+  addItemSchema,
+  createOrderSchema,
+  removeItemOrderSchema,
+  detailOrderSchema,
+} from "./schemas/orderSchema";
 import { createUserSchema } from "./schemas/userSchema";
 
 // Controllers - Usuários
@@ -33,6 +39,13 @@ import { CreateProductController } from "./controllers/product/CreateProductCont
 import { ListProductController } from "./controllers/product/ListProductController";
 import { DeleteProductController } from "./controllers/product/DeleteProductController";
 import { ListProductByCategoryController } from "./controllers/product/ListProductByCategoryController";
+
+// Controllers - Orders
+import { CreateOrderController } from "./controllers/order/CreateOrderController";
+import { ListOrderController } from "./controllers/order/ListOrderController";
+import { AddItemController } from "./controllers/order/AddItemController";
+import { RemoveItemOrderController } from "./controllers/order/RemoveItemOrderController";
+import { DetailOrderController } from "./controllers/order/DetailOrderController";
 
 const router = Router();
 const upload = multer(uploadConfig);
@@ -101,6 +114,40 @@ router.get(
   isAuthenticated,
   validateSchema(listProductByCategorySchema),
   new ListProductByCategoryController().handle,
+);
+
+// ====================
+// Rotas de Orders
+// ====================
+
+router.post(
+  "/order",
+  isAuthenticated,
+  validateSchema(createOrderSchema),
+  new CreateOrderController().handle,
+);
+
+router.get("/orders", isAuthenticated, new ListOrderController().handle);
+
+router.post(
+  "/order/add",
+  isAuthenticated,
+  validateSchema(addItemSchema),
+  new AddItemController().handle,
+);
+
+router.delete(
+  "/order/remove",
+  isAuthenticated,
+  validateSchema(removeItemOrderSchema),
+  new RemoveItemOrderController().handle,
+);
+
+router.get(
+  "/order/detail",
+  isAuthenticated,
+  validateSchema(detailOrderSchema),
+  new DetailOrderController().handle,
 );
 
 export { router };
