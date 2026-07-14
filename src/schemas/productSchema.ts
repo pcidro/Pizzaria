@@ -23,3 +23,11 @@ export const listProductSchema = z.object({
       .transform((val) => val === "true"),
   }),
 });
+
+export const listProductByCategorySchema = z.object({
+  query: z.object({
+    category_id: z
+      .string()
+      .min(1, { message: "O category_id é obrigatório" }),
+  }),
+});
