@@ -33,3 +33,21 @@ export const detailOrderSchema = z.object({
   }),
 });
 
+export const sendOrderSchema = z.object({
+  body: z.object({
+    order_id: z.string({ error: "O ID do pedido é obrigatório" }),
+    name: z.string({ error: "O nome é obrigatório" }),
+  }),
+});
+
+export const finishOrderSchema = z.object({
+  body: z.object({
+    order_id: z.string({ error: "O ID do pedido é obrigatório" }),
+  }),
+});
+
+export const deleteOrderSchema = z.object({
+  query: z.object({
+    order_id: z.string({ error: "O ID do pedido é obrigatório" }),
+  }),
+});
