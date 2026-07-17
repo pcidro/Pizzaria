@@ -6,6 +6,6 @@ export class AuthUserController {
     const { email, password } = req.body;
     const authService = new AuthUserService();
     const session = await authService.execute({ email, password });
-    res.json({ ok: session });
+    res.json(session);
   }
 }
