@@ -63,8 +63,6 @@ const upload = multer(uploadConfig);
 router.post(
   "/users",
   validateSchema(createUserSchema),
-  isAuthenticated,
-  isAdmin,
   new UserController().handle,
 );
 
