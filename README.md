@@ -25,6 +25,13 @@ O sistema foi criado para organizar o fluxo básico de atendimento de uma pizzar
 
 O backend segue uma arquitetura em camadas, separando rotas, middlewares, controllers, services e acesso ao banco. Essa organização facilita manutenção, testes e evolução do sistema.
 
+## Acesso para Testes
+
+Caso deseje testar a aplicação consumindo esta API através do frontend, você pode utilizar a seguinte conta de testes. **Importante:** Este usuário tem permissão apenas para visualização. As rotas de criação, alteração e exclusão (como postar produtos, excluir categorias, finalizar pedidos, etc.) são protegidas pelo middleware de administrador, bloqueando qualquer tentativa de alteração.
+
+- **E-mail:** `usuario@gmail.com`
+- **Senha:** `Usuario123`
+
 ## Tecnologias
 
 - Node.js
