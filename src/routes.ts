@@ -168,6 +168,7 @@ router.put(
 router.put(
   "/order/finish",
   isAuthenticated,
+  isAdmin,
   validateSchema(finishOrderSchema),
   new FinishOrderController().handle,
 );
