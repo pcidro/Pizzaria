@@ -24,6 +24,7 @@ import {
   detailOrderSchema,
   sendOrderSchema,
   finishOrderSchema,
+  finishedOrdersSchema,
   deleteOrderSchema,
 } from "./schemas/orderSchema";
 import { createUserSchema } from "./schemas/userSchema";
@@ -52,6 +53,7 @@ import { DetailOrderController } from "./controllers/order/DetailOrderController
 import { SendOrderController } from "./controllers/order/SendOrderController";
 import { FinishOrderController } from "./controllers/order/FinishOrderController";
 import { DeleteOrderController } from "./controllers/order/DeleteOrderController";
+import { FinishedOrderController } from "./controllers/order/FinishedOrdersController";
 
 const router = Router();
 const upload = multer(uploadConfig);
@@ -173,9 +175,17 @@ router.put(
   new FinishOrderController().handle,
 );
 
+router.get(
+  "/order/finishedorders",
+  isAuthenticated,
+  validateSchema(finishedOrdersSchema),
+  new FinishedOrderController().handle,
+);
+
 router.delete(
   "/order",
   isAuthenticated,
+  isAdmin,
   validateSchema(deleteOrderSchema),
   new DeleteOrderController().handle,
 );

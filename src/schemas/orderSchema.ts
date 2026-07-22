@@ -46,6 +46,16 @@ export const finishOrderSchema = z.object({
   }),
 });
 
+export const finishedOrdersSchema = z.object({
+  query: z.object({
+    status: z
+      .enum(["true", "false"], {
+        error: "O parâmetro status deve ser 'true' ou 'false'",
+      })
+      .optional(),
+  }),
+});
+
 export const deleteOrderSchema = z.object({
   query: z.object({
     order_id: z.string({ error: "O ID do pedido é obrigatório" }),
