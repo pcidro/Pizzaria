@@ -12,6 +12,7 @@ export class CreateOrderService {
         data: {
           table,
           name: name || "",
+          draft: false,
         },
         select: {
           id: true,
