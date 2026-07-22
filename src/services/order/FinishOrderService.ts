@@ -23,6 +23,7 @@ export class FinishOrderService {
         },
         data: {
           status: true,
+          finishedAt: new Date(),
         },
         select: {
           id: true,

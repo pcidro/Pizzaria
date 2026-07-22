@@ -1,7 +1,7 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
+// Get a free hosted Postgres database in seconds: npx create-db
 
 generator client {
   provider = "prisma-client"
@@ -23,7 +23,7 @@ model User {
   email String @unique
   password String
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   role Role @default(STAFF)
   @@map("users")
 }
@@ -32,7 +32,7 @@ model Category{
     id String @id @default(uuid())
   name String
     createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
   products Product[] 
   @@map("categories")
 }
@@ -45,7 +45,7 @@ model Product{
   banner String
   disabled Boolean @default(false)
     createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 category_id String
 category Category @relation(fields: [category_id],references: [id], onDelete: Cascade)
 items Item[]
@@ -62,6 +62,7 @@ model Order{
   items Item[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  finishedAt DateTime?
   @@map("orders")
 }
 
